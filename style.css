@@ -1,0 +1,81 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+a, a:hover, a:visited {
+    text-decoration: none;
+}
+
+a:hover, button:hover {
+    opacity: 0.8;
+}
+
+a, button {
+    cursor: pointer;
+}
+
+.clip {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+:root {
+    --color-white: #ffffff;
+}
+
+.main {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.mainBlock {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.userName {
+    width: 150px;
+
+    font-weight: 700;
+    font-size: 18px;
+    -webkit-line-clamp: 2;
+}
+
+.userCompany {
+    width: 150px;
+
+    font-style: italic;
+    font-size: 14px;
+    -webkit-line-clamp: 2;
+}
+
+.userAge {
+    width: 100px;
+    margin-left: 40px;
+}
+
+.userGender {
+    width: 120px;
+    margin-left: 40px;
+}
+
+.edit {
+    margin-left: 15px;
+    background-color: var(--color-white);
+}
+
+.delete {
+    background-color: var(--color-white);
+}

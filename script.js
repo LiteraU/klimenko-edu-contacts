@@ -1,5 +1,5 @@
 let contacts = [
-    {id: 1, name: 'Артём ваиовлт ввтствстыв', company: 'Google', age: 36, gender: 'Мужской'},
+    {id: 1, name: 'Артём', company: 'Google', age: 36, gender: 'Мужской'},
     {id: 2, name: 'Никита', company: 'Facebook', age: 21, gender: 'Мужской'},
     {id: 3, name: 'Алексей', company: 'Google', age: 29, gender: 'Мужской'},
     {id: 4, name: 'Олег', company: 'Amazon', age: 21, gender: 'Мужской'},

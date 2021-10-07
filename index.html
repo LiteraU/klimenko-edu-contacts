@@ -5,12 +5,61 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-<div class="main">
+<div class="modalWindow">
+    <div class="container">
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addNewUserModal">
+            Добавить пользователя
+        </button>
+    </div>
 </div>
-<script src="script.js"></script>
+<!-- Modal -->
+    <div class="modal fade" id="addNewUserModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Введите данные:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form name="addUser" id="addUser" onsubmit="return createContact(event)">
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">Имя</label>
+                            <input type="text" class="form-control" id="userName" placeholder="Введите имя" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userCompany" class="form-label">Компания</label>
+                            <input type="text" class="form-control" id="userCompany" placeholder="Введите название компании">
+                        </div>
+                        <div class="mb-3">
+                            <label for="userAge" class="form-label">Возраст</label>
+                            <input type="number" class="form-control" id="userAge" min="18" max="99" required>
+                        </div>
+                        <select class="form-select" aria-label="gender" id="userGender" required>
+                            <option selected>Выберите пол</option>
+                            <option value="Мужской">Мужской</option>
+                            <option value="Женский">Женский</option>
+                            <option value="Другой">Другой</option>
+                        </select>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Сохранить</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="main"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
 </html>

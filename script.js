@@ -1,5 +1,5 @@
 let contacts = [
-    {id: 1, name: 'Артём ваиовлт ввтствстыв', company: 'Google', age: 36, gender: 'Мужской'},
+    {id: 1, name: 'Артём', company: 'Google', age: 36, gender: 'Мужской'},
     {id: 2, name: 'Никита', company: 'Facebook', age: 21, gender: 'Мужской'},
     {id: 3, name: 'Алексей', company: 'Google', age: 29, gender: 'Мужской'},
     {id: 4, name: 'Олег', company: 'Amazon', age: 21, gender: 'Мужской'},
@@ -9,8 +9,9 @@ let contacts = [
     {id: 8, name: 'Елизавета', company: 'Facebook', age: 54, gender: 'Женский'},
     {id: 9, name: 'Kate', company: 'Google', age: 18, gender: 'Женский'},
     {id: 10, name: 'John', company: 'Amazon', age: 24, gender: 'Мужской'}
-]
+];
 
+// ===============Implement output of contacts on the page===============
 let main = document.querySelector('.main');
 
 function renderContact(contact) {
@@ -30,11 +31,36 @@ function renderContact(contact) {
                 <button class="delete">
                     <img src="images/delete-icon.svg" alt="delete" width="25">
                 </button>
-            </div>`
+            </div>`;
 }
 
 function renderContacts(contacts) {
     return contacts.map(element => renderContact(element));
 }
 
-main.innerHTML = renderContacts(contacts).join('');
+function displayContacts() {
+    main.innerHTML = renderContacts(contacts).join('');
+}
+
+displayContacts();
+//=============================================================================
+
+// ==========Implement a modal window for adding a new contact=================
+function createContact(event) {
+    event.preventDefault();
+
+    let newContact = {
+        id: + new Date(),
+        name: event.target.elements.userName.value,
+        company: event.target.elements.userCompany.value,
+        age: event.target.elements.userAge.value,
+        gender: event.target.elements.userGender.value
+    };
+    contacts.push(newContact);
+    displayContacts();
+
+    document.getElementById('addUser').reset();
+
+    return false;
+}
+//==============================================================================

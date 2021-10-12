@@ -28,7 +28,12 @@ function renderContact(contact) {
                 <button class="edit">
                     <img src="images/edit-icon.svg" alt="edit" width="20">
                 </button>
-                <button class="delete">
+                <button 
+                class="delete btn"
+                data-bs-toggle="modal" 
+                data-bs-target="#deleteUserModal"
+                onclick="callConfirmDeleteModal(${contact.id})"
+                >
                     <img src="images/delete-icon.svg" alt="delete" width="25">
                 </button>
             </div>`;
@@ -63,4 +68,20 @@ function createContact(event) {
 
     return false;
 }
+//==============================================================================
+
+// ==========Add the ability to delete a contact================================
+
+function callConfirmDeleteModal(contactId) {
+    let contact = contacts.find(item => item.id === contactId);
+    document.getElementById('deleteUserId').value = contact.id;
+}
+
+function deleteContact(event) {
+    event.preventDefault();
+    let deleteUserId = +document.getElementById('deleteUserId').value;
+    contacts = contacts.filter(element => element.id !== deleteUserId);
+    displayContacts();
+}
+
 //==============================================================================

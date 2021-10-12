@@ -58,6 +58,26 @@
             </div>
         </div>
     </div>
+<!-- Modal delete user -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Подтвердите действие</h5>
+            </div>
+            <div class="modal-body">
+                <p>Удалить пользователя?</p>
+                <div class="modal-footer">
+                    <form id="deleteUser" onsubmit="return deleteContact(event)">
+                        <input type="hidden" id="deleteUserId">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Да</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="main"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
     <script src="script.js"></script>

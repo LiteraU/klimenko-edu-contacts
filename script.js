@@ -25,7 +25,12 @@ function renderContact(contact) {
                 </div>
                 <div class="userAge clip">Возраст: ${contact.age}</div>
                 <div class="userGender clip">Пол: ${contact.gender}</div>
-                <button class="edit">
+                <button 
+                class="edit btn" 
+                data-bs-toggle="modal" 
+                data-bs-target="#editUserModal"
+                onclick="callEditContactModal(${contact.id})"
+                >
                     <img src="images/edit-icon.svg" alt="edit" width="20">
                 </button>
                 <button 
@@ -81,6 +86,34 @@ function deleteContact(event) {
     event.preventDefault();
     let deleteUserId = +document.getElementById('deleteUserId').value;
     contacts = contacts.filter(element => element.id !== deleteUserId);
+    displayContacts();
+}
+
+//==============================================================================
+
+// ==========Implement a modal window for edit contact==========================
+
+function callEditContactModal(contactId) {
+    let contact = contacts.find(item => item.id === contactId);
+    document.getElementById('editUserId').value = contact.id;
+    document.getElementById('editUserName').value = contact.name;
+    document.getElementById('editUserCompany').value = contact.company;
+    document.getElementById('editUserAge').value = contact.age;
+    document.getElementById('editUserGender').value = contact.gender;
+}
+
+function editContact(event) {
+    event.preventDefault();
+
+    let modifiedContact = {
+        id: +event.target.elements.editUserId.value,
+        name: event.target.elements.editUserName.value,
+        company: event.target.elements.editUserCompany.value,
+        age: +event.target.elements.editUserAge.value,
+        gender: event.target.elements.editUserGender.value
+    };
+
+    contacts = contacts.map(element => element.id === modifiedContact.id ? modifiedContact : element);
     displayContacts();
 }
 

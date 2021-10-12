@@ -20,44 +20,7 @@
         </button>
     </div>
 </div>
-<!-- Modal -->
-    <div class="modal fade" id="addNewUserModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Введите данные:</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form name="addUser" id="addUser" onsubmit="return createContact(event)">
-                        <div class="mb-3">
-                            <label for="userName" class="form-label">Имя</label>
-                            <input type="text" class="form-control" id="userName" placeholder="Введите имя" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="userCompany" class="form-label">Компания</label>
-                            <input type="text" class="form-control" id="userCompany" placeholder="Введите название компании">
-                        </div>
-                        <div class="mb-3">
-                            <label for="userAge" class="form-label">Возраст</label>
-                            <input type="number" class="form-control" id="userAge" min="18" max="99" required>
-                        </div>
-                        <select class="form-select" aria-label="gender" id="userGender" required>
-                            <option selected>Выберите пол</option>
-                            <option value="Мужской">Мужской</option>
-                            <option value="Женский">Женский</option>
-                            <option value="Другой">Другой</option>
-                        </select>
-                        <div class="modal-footer">
-                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Сохранить</button>
-                        </div>
-                    </form>
-                </div>
 
-            </div>
-        </div>
-    </div>
 <!-- Modal delete user -->
 <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -74,6 +37,81 @@
                         <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Да</button>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal add new user -->
+<div class="modal fade" id="addNewUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Введите данные:</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form name="addUser" id="addUser" onsubmit="return createContact(event)">
+                    <div class="mb-3">
+                        <label for="userName" class="form-label">Имя</label>
+                        <input type="text" class="form-control" id="userName" placeholder="Введите имя" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userCompany" class="form-label">Компания</label>
+                        <input type="text" class="form-control" id="userCompany" placeholder="Введите название компании">
+                    </div>
+                    <div class="mb-3">
+                        <label for="userAge" class="form-label">Возраст</label>
+                        <input type="number" class="form-control" id="userAge" min="18" max="99" required>
+                    </div>
+                    <select class="form-select" aria-label="gender" id="userGender" required>
+                        <option selected>Выберите пол</option>
+                        <option value="Мужской">Мужской</option>
+                        <option value="Женский">Женский</option>
+                        <option value="Другой">Другой</option>
+                    </select>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal edit user -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Введите данные:</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUser" onsubmit="return editContact(event)">
+                    <input type="hidden" id="editUserId" value="">
+                    <div class="mb-3">
+                        <label for="editUserName" class="form-label">Имя</label>
+                        <input type="text" class="form-control" id="editUserName" placeholder="Введите имя" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editUserCompany" class="form-label">Компания</label>
+                        <input type="text" class="form-control" id="editUserCompany" placeholder="Введите название компании">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editUserAge" class="form-label">Возраст</label>
+                        <input type="number" class="form-control" id="editUserAge" min="18" max="99" required>
+                    </div>
+                    <select class="form-select" aria-label="gender" id="editUserGender" required>
+                        <option selected>Выберите пол</option>
+                        <option value="Мужской">Мужской</option>
+                        <option value="Женский">Женский</option>
+                        <option value="Другой">Другой</option>
+                    </select>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Сохранить</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

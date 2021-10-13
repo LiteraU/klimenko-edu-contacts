@@ -1,15 +1,22 @@
-let contacts = [
-    {id: 1, name: 'Артём', company: 'Google', age: 36, gender: 'Мужской'},
-    {id: 2, name: 'Никита', company: 'Facebook', age: 21, gender: 'Мужской'},
-    {id: 3, name: 'Алексей', company: 'Google', age: 29, gender: 'Мужской'},
-    {id: 4, name: 'Олег', company: 'Amazon', age: 21, gender: 'Мужской'},
-    {id: 5, name: 'Инна', company: 'Amazon', age: 23, gender: 'Женский'},
-    {id: 6, name: 'Анна', company: 'Google', age: 46, gender: 'Женский'},
-    {id: 7, name: 'Георгий', company: 'Facebook', age: 24, gender: 'Мужской'},
-    {id: 8, name: 'Елизавета', company: 'Facebook', age: 54, gender: 'Женский'},
-    {id: 9, name: 'Kate', company: 'Google', age: 18, gender: 'Женский'},
-    {id: 10, name: 'John', company: 'Amazon', age: 24, gender: 'Мужской'}
-];
+let allContacts = getAllContactsFromLocalStorage();
+
+// ===========================Add localStorage support==========================
+
+function getAllContactsFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('contacts'));
+}
+
+function saveAllContactsToLocalStorage(contacts) {
+    let stringifiedContacts = JSON.stringify(contacts);
+    localStorage.setItem('contacts', stringifiedContacts);
+}
+
+function saveContacts(contacts) {
+    allContacts = contacts;
+    saveAllContactsToLocalStorage(contacts);
+}
+
+//==============================================================================
 
 // ===============Implement output of contacts on the page===============
 let main = document.querySelector('.main');
@@ -49,7 +56,7 @@ function renderContacts(contacts) {
 }
 
 function displayContacts() {
-    main.innerHTML = renderContacts(contacts).join('');
+    main.innerHTML = renderContacts(allContacts).join('');
 }
 
 displayContacts();
@@ -66,7 +73,8 @@ function createContact(event) {
         age: event.target.elements.userAge.value,
         gender: event.target.elements.userGender.value
     };
-    contacts.push(newContact);
+
+    saveContacts([...allContacts, newContact]);
     displayContacts();
 
     document.getElementById('addUser').reset();
@@ -78,14 +86,15 @@ function createContact(event) {
 // ==========Add the ability to delete a contact================================
 
 function callConfirmDeleteModal(contactId) {
-    let contact = contacts.find(item => item.id === contactId);
+    let contact = allContacts.find(item => item.id === contactId);
     document.getElementById('deleteUserId').value = contact.id;
 }
 
 function deleteContact(event) {
     event.preventDefault();
     let deleteUserId = +document.getElementById('deleteUserId').value;
-    contacts = contacts.filter(element => element.id !== deleteUserId);
+    let newContacts = allContacts.filter(element => element.id !== deleteUserId);
+    saveContacts(newContacts);
     displayContacts();
 }
 
@@ -94,7 +103,7 @@ function deleteContact(event) {
 // ==========Implement a modal window for edit contact==========================
 
 function callEditContactModal(contactId) {
-    let contact = contacts.find(item => item.id === contactId);
+    let contact = allContacts.find(item => item.id === contactId);
     document.getElementById('editUserId').value = contact.id;
     document.getElementById('editUserName').value = contact.name;
     document.getElementById('editUserCompany').value = contact.company;
@@ -113,7 +122,8 @@ function editContact(event) {
         gender: event.target.elements.editUserGender.value
     };
 
-    contacts = contacts.map(element => element.id === modifiedContact.id ? modifiedContact : element);
+    let newContacts = allContacts.map(element => element.id === modifiedContact.id ? modifiedContact : element);
+    saveContacts(newContacts);
     displayContacts();
 }
 

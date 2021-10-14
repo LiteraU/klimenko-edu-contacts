@@ -119,3 +119,17 @@ a, button {
     opacity: 0;
     pointer-events: none;
 }
+
+.search {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.searchField {
+    min-width: 470px;
+    min-height: 40px;
+    padding: 10px;
+    background-color: #efefef;
+    border-radius: 15px;
+    outline: none;
+}

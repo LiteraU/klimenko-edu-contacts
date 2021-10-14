@@ -55,11 +55,15 @@ function renderContacts(contacts) {
     return contacts.map(element => renderContact(element));
 }
 
-function displayContacts() {
-    main.innerHTML = renderContacts(allContacts).join('');
+function displayAllContacts() {
+    displayContacts(allContacts);
 }
 
-displayContacts();
+function displayContacts(contacts) {
+    main.innerHTML = renderContacts(contacts).join('');
+}
+
+displayAllContacts();
 //=============================================================================
 
 // ==========Implement a modal window for adding a new contact=================
@@ -75,7 +79,7 @@ function createContact(event) {
     };
 
     saveContacts([...allContacts, newContact]);
-    displayContacts();
+    displayAllContacts();
 
     document.getElementById('addUser').reset();
 
@@ -95,7 +99,7 @@ function deleteContact(event) {
     let deleteUserId = +document.getElementById('deleteUserId').value;
     let newContacts = allContacts.filter(element => element.id !== deleteUserId);
     saveContacts(newContacts);
-    displayContacts();
+    displayAllContacts();
 }
 
 //==============================================================================
@@ -124,7 +128,7 @@ function editContact(event) {
 
     let newContacts = allContacts.map(element => element.id === modifiedContact.id ? modifiedContact : element);
     saveContacts(newContacts);
-    displayContacts();
+    displayAllContacts();
 }
 
 //==============================================================================
@@ -170,15 +174,28 @@ function changeActualSorter(field, direction) {
 
 function changeSort(field) {
     if (field === sortedByField) {
-        sortDirection = sortDirection === 'ASC' ? 'DESC' : 'ASC'
+        sortDirection = sortDirection === 'ASC' ? 'DESC' : 'ASC';
     } else {
         sortDirection = 'DESC';
         sortedByField = field;
     }
-    sortByFieldAndDirection(field, sortDirection)
-    clearAllSorterIcons()
-    changeActualSorter(field, sortDirection)
-    displayContacts();
+    sortByFieldAndDirection(field, sortDirection);
+    clearAllSorterIcons();
+    changeActualSorter(field, sortDirection);
+    displayAllContacts();
+}
+
+//==============================================================================
+
+// ====================Add search by name and by company========================
+
+function searchContact() {
+    let searchValue = document.querySelector('.searchField').value.trim().toLowerCase();
+    displayContacts(searchContactsByPhrase(searchValue));
+}
+
+function searchContactsByPhrase(phrase) {
+    return allContacts.filter(element => `${element.name} ${element.company}`.toLowerCase().includes(phrase));
 }
 
 //==============================================================================

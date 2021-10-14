@@ -24,7 +24,7 @@ let main = document.querySelector('.main');
 function renderContact(contact) {
     return `<div class="mainBlock">
                 <div class="avatar">
-                    <img src="images/user-avatar-icon.svg" alt="avatar" width="80px" class="avatarIcon">
+                    <img src="./images/user-avatar-icon.svg" alt="avatar" width="80px" class="avatarIcon">
                 </div>
                 <div class="userInfo">
                     <div class="userName clamp">${contact.name}</div>
@@ -38,7 +38,7 @@ function renderContact(contact) {
                 data-bs-target="#editUserModal"
                 onclick="callEditContactModal(${contact.id})"
                 >
-                    <img src="images/edit-icon.svg" alt="edit" width="20">
+                    <img src="./images/edit-icon.svg" alt="edit" width="20">
                 </button>
                 <button 
                 class="delete btn"
@@ -46,7 +46,7 @@ function renderContact(contact) {
                 data-bs-target="#deleteUserModal"
                 onclick="callConfirmDeleteModal(${contact.id})"
                 >
-                    <img src="images/delete-icon.svg" alt="delete" width="25">
+                    <img src="./images/delete-icon.svg" alt="delete" width="25">
                 </button>
             </div>`;
 }
@@ -124,6 +124,60 @@ function editContact(event) {
 
     let newContacts = allContacts.map(element => element.id === modifiedContact.id ? modifiedContact : element);
     saveContacts(newContacts);
+    displayContacts();
+}
+
+//==============================================================================
+
+// ===========================Add sorting by fields=============================
+
+function byField(field) {
+    return (first, second) => first[field] > second[field] ? 1 : -1;
+}
+function byReverseField(field) {
+    return (first, second) => first[field] > second[field] ? -1 : 1;
+}
+
+function sortByFieldAndDirection(field, direction) {
+    if (direction === 'DESC') {
+        allContacts.sort(byReverseField(field));
+    } else {
+        allContacts.sort(byField(field));
+    }
+}
+
+let sortIcons = document.querySelectorAll('.iconArrowSort');
+let sortDirection = 'DESC';
+let sortedByField = '';
+let mappedSorter = ['name', 'company', 'age', 'gender'];
+
+function clearAllSorterIcons(){
+    for (let i = 0; i < mappedSorter.length; i++) {
+        sortIcons[i].classList.add('iconArrowSortHidden')
+    }
+}
+
+function changeActualSorter(field, direction) {
+    let foundedIcon = sortIcons[mappedSorter.indexOf(field)];
+
+    if (direction === 'DESC') {
+        foundedIcon.classList.add('iconArrowSortReverse');
+    } else {
+        foundedIcon.classList.remove('iconArrowSortReverse');
+    }
+    foundedIcon.classList.remove('iconArrowSortHidden');
+}
+
+function changeSort(field) {
+    if (field === sortedByField) {
+        sortDirection = sortDirection === 'ASC' ? 'DESC' : 'ASC'
+    } else {
+        sortDirection = 'DESC';
+        sortedByField = field;
+    }
+    sortByFieldAndDirection(field, sortDirection)
+    clearAllSorterIcons()
+    changeActualSorter(field, sortDirection)
     displayContacts();
 }
 

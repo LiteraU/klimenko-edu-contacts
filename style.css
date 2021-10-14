@@ -89,3 +89,33 @@ a, button {
 .delete {
     background-color: var(--color-white);
 }
+
+.sort {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.sortText {
+    color: #a7a7a7;
+    font-size: 14px;
+}
+
+.sortItem {
+    font-size: 14px;
+    margin-left: 10px;
+    color: #000000;
+}
+
+.iconArrowSort {
+    transition-property: transform;
+    transition-duration: 0.3s;
+}
+
+.iconArrowSortReverse {
+    transform: rotate(180deg);
+}
+
+.iconArrowSortHidden {
+    opacity: 0;
+    pointer-events: none;
+}

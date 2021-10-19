@@ -129,13 +129,13 @@
             </button>
             <div class="blockFilter">
                 <label>Мужской
-                    <input type="checkbox" onclick="filterByGenderAndCompany(this)" data-company-and-gender=Мужской data-filter-type="gender">
+                    <input type="checkbox" class="clearFilter" onclick="filterByGenderAndCompany(this)" data-company-and-gender=Мужской data-filter-type="gender">
                 </label>
                 <label>Женский
-                    <input type="checkbox" onclick="filterByGenderAndCompany(this)" data-company-and-gender=Женский data-filter-type="gender">
+                    <input type="checkbox" class="clearFilter" onclick="filterByGenderAndCompany(this)" data-company-and-gender=Женский data-filter-type="gender">
                 </label>
                 <label>Другой
-                    <input type="checkbox" onclick="filterByGenderAndCompany(this)" data-company-and-gender=Другой data-filter-type="gender">
+                    <input type="checkbox" class="clearFilter" onclick="filterByGenderAndCompany(this)" data-company-and-gender=Другой data-filter-type="gender">
                 </label>
             </div>
         </div>
@@ -145,6 +145,7 @@
             </button>
             <div class="blockFilter blockFilterCompany"></div>
         </div>
+        <button class="clearAll filterButton" onclick="clearAll()">Очистить всё</button>
     </div>
 </div>
 <!-- Sorting by fields -->

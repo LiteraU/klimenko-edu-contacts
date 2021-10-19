@@ -191,9 +191,9 @@ function changeSort(field) {
 //==============================================================================
 
 // ====================Add search by name and by company========================
-
+let searchInput = document.querySelector('.searchField');
 function searchContact() {
-    let searchValue = document.querySelector('.searchField').value.trim().toLowerCase();
+    let searchValue = searchInput.value.trim().toLowerCase();
     displayContacts(searchContactsByPhrase(searchValue));
 }
 
@@ -211,7 +211,7 @@ let dropdownListOfFilterCompanies = document.querySelector('.blockFilterCompany'
 
 function renderCompaniesToFilter(element) {
     return `<label>${element.company}
-                <input type="checkbox" onclick="filterByGenderAndCompany(this)" data-company-and-gender=${element.company} data-filter-type="company">
+                <input type="checkbox" class="clearFilter" onclick="filterByGenderAndCompany(this)" data-company-and-gender=${element.company} data-filter-type="company">
             </label>`
 }
 
@@ -253,6 +253,20 @@ function filterByGenderAndCompany(element) {
     sortedContacts = filteredByCompany;
 
     displayContacts(sortedContacts);
+}
+
+//==============================================================================
+
+// ===================Add a button to clear filters, sort and search====================
+
+function clearAll() {
+    let clearFilters = document.querySelectorAll('.clearFilter');
+    for (let i = 0; i < clearFilters.length; i++) {
+        clearFilters[i].checked = false;
+    }
+    searchInput.value = '';
+    clearAllSorterIcons();
+    displayAllContacts();
 }
 
 //==============================================================================

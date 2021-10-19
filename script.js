@@ -1,4 +1,7 @@
 let allContacts = getAllContactsFromLocalStorage();
+let searchedContacts = allContacts;
+let filteredContacts = searchedContacts;
+let sortedContacts = filteredContacts;
 
 // ===========================Add localStorage support==========================
 
@@ -144,9 +147,9 @@ function byReverseField(field) {
 
 function sortByFieldAndDirection(field, direction) {
     if (direction === 'DESC') {
-        allContacts.sort(byReverseField(field));
+        sortedContacts.sort(byReverseField(field));
     } else {
-        allContacts.sort(byField(field));
+        sortedContacts.sort(byField(field));
     }
 }
 
@@ -182,20 +185,88 @@ function changeSort(field) {
     sortByFieldAndDirection(field, sortDirection);
     clearAllSorterIcons();
     changeActualSorter(field, sortDirection);
-    displayAllContacts();
+    displayContacts(sortedContacts);
 }
 
 //==============================================================================
 
 // ====================Add search by name and by company========================
-
+let searchInput = document.querySelector('.searchField');
 function searchContact() {
-    let searchValue = document.querySelector('.searchField').value.trim().toLowerCase();
+    let searchValue = searchInput.value.trim().toLowerCase();
     displayContacts(searchContactsByPhrase(searchValue));
 }
 
 function searchContactsByPhrase(phrase) {
-    return allContacts.filter(element => `${element.name} ${element.company}`.toLowerCase().includes(phrase));
+    searchedContacts = allContacts.filter(element => `${element.name} ${element.company}`.toLowerCase().includes(phrase));
+    return searchedContacts;
+}
+
+//==============================================================================
+
+// ======================Add filters by company and gender======================
+let selectedCompanies = [];
+let selectedGenders = [];
+let dropdownListOfFilterCompanies = document.querySelector('.blockFilterCompany');
+
+function renderCompaniesToFilter(element) {
+    return `<label>${element.company}
+                <input type="checkbox" class="clearFilter" onclick="filterByGenderAndCompany(this)" data-company-and-gender=${element.company} data-filter-type="company">
+            </label>`
+}
+
+function filteringOfUniqueCompanies() {
+    let allCompanies = allContacts.map(renderCompaniesToFilter);
+    return Array.from(new Set(allCompanies));
+}
+
+function displayCompaniesToFilter() {
+    dropdownListOfFilterCompanies.innerHTML = filteringOfUniqueCompanies().join('');
+}
+displayCompaniesToFilter();
+
+//==============================================================================
+
+function filterByGenderAndCompany(element) {
+    let filterType = element?.dataset?.filterType;
+    let elementChecked = element?.checked;
+
+    if (elementChecked && filterType === 'gender') {
+        selectedGenders.push(element?.dataset?.companyAndGender);
+    }
+
+    if (!elementChecked && filterType === 'gender') {
+        selectedGenders = selectedGenders.filter(it => it !== element?.dataset?.companyAndGender);
+    }
+
+    if (elementChecked && filterType === 'company') {
+        selectedCompanies.push(element?.dataset?.companyAndGender);
+    }
+
+    if (!elementChecked && filterType === 'company') {
+        selectedCompanies = selectedCompanies.filter(it => it !== element?.dataset?.companyAndGender);
+    }
+
+    let filteredByGenders = searchedContacts.filter(contact => selectedGenders.length === 0 || selectedGenders.includes(contact.gender));
+    let filteredByCompany = filteredByGenders.filter(contact => selectedCompanies.length === 0 || selectedCompanies.includes(contact.company));
+
+    sortedContacts = filteredByCompany;
+
+    displayContacts(sortedContacts);
+}
+
+//==============================================================================
+
+// ===================Add a button to clear filters, sort and search====================
+
+function clearAll() {
+    let clearFilters = document.querySelectorAll('.clearFilter');
+    for (let i = 0; i < clearFilters.length; i++) {
+        clearFilters[i].checked = false;
+    }
+    searchInput.value = '';
+    clearAllSorterIcons();
+    displayAllContacts();
 }
 
 //==============================================================================

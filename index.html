@@ -120,6 +120,34 @@
 <div class="search">
     <input type="search" class="searchField" placeholder="Поиск" oninput="searchContact()">
 </div>
+<!--Add filters by company and gender-->
+<div class="container">
+    <div class="filter">
+        <div class="filterItem">
+            <button class="filterButton">
+                <img class="filterIcon" src="./images/filter-down-arrow-icon.svg" alt="" width="18px"> Выбрать пол
+            </button>
+            <div class="blockFilter">
+                <label>Мужской
+                    <input type="checkbox" class="clearFilter" onclick="filterByGenderAndCompany(this)" data-company-and-gender=Мужской data-filter-type="gender">
+                </label>
+                <label>Женский
+                    <input type="checkbox" class="clearFilter" onclick="filterByGenderAndCompany(this)" data-company-and-gender=Женский data-filter-type="gender">
+                </label>
+                <label>Другой
+                    <input type="checkbox" class="clearFilter" onclick="filterByGenderAndCompany(this)" data-company-and-gender=Другой data-filter-type="gender">
+                </label>
+            </div>
+        </div>
+        <div class="filterItem">
+            <button class="filterButton">
+                <img class="filterIcon" src="./images/filter-down-arrow-icon.svg" alt="" width="18px">Выбрать компанию
+            </button>
+            <div class="blockFilter blockFilterCompany"></div>
+        </div>
+        <button class="clearAll filterButton" onclick="clearAll()">Очистить всё</button>
+    </div>
+</div>
 <!-- Sorting by fields -->
 <div class="sort">
     <div class="container">

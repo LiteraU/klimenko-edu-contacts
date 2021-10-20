@@ -205,14 +205,12 @@ function searchContactsByPhrase(phrase) {
 //==============================================================================
 
 // ======================Add filters by company and gender======================
-let selectedCompanies = [];
-let selectedGenders = [];
-let dropdownListOfFilterCompanies = document.querySelector('.blockFilterCompany');
+let selectedCompany = '';
+let selectedGender = '';
+let filterCompany = document.querySelector('.filterCompany');
 
 function renderCompaniesToFilter(element) {
-    return `<label>${element.company}
-                <input type="checkbox" class="clearFilter" onclick="filterByGenderAndCompany(this)" data-company-and-gender=${element.company} data-filter-type="company">
-            </label>`
+    return `<option value="${element.company}">${element.company}</option>`
 }
 
 function filteringOfUniqueCompanies() {
@@ -221,49 +219,44 @@ function filteringOfUniqueCompanies() {
 }
 
 function displayCompaniesToFilter() {
-    dropdownListOfFilterCompanies.innerHTML = filteringOfUniqueCompanies().join('');
+    filterCompany.innerHTML = `
+    <option class="filterDefault" hidden>Выбрать компанию</option>
+    ${filteringOfUniqueCompanies().join('')}
+    <option value="allCompanies">Все</option>`
 }
 displayCompaniesToFilter();
 
 //==============================================================================
 
-function filterByGenderAndCompany(element) {
-    let filterType = element?.dataset?.filterType;
-    let elementChecked = element?.checked;
+function filterByGenderAndCompany(event) {
+    let selectedFilter = event.target.value;
+    let arrayForTheFilter = ['Женский', 'Мужской', 'Другой'];
 
-    if (elementChecked && filterType === 'gender') {
-        selectedGenders.push(element?.dataset?.companyAndGender);
+    if (selectedFilter.includes('allGenders')) {
+        selectedGender = '';
+    } else if (selectedFilter.includes('allCompanies')) {
+        selectedCompany = '';
+    } else if (arrayForTheFilter.includes(selectedFilter)) {
+        selectedGender = selectedFilter;
+    } else {
+        selectedCompany = selectedFilter;
     }
 
-    if (!elementChecked && filterType === 'gender') {
-        selectedGenders = selectedGenders.filter(it => it !== element?.dataset?.companyAndGender);
-    }
-
-    if (elementChecked && filterType === 'company') {
-        selectedCompanies.push(element?.dataset?.companyAndGender);
-    }
-
-    if (!elementChecked && filterType === 'company') {
-        selectedCompanies = selectedCompanies.filter(it => it !== element?.dataset?.companyAndGender);
-    }
-
-    let filteredByGenders = searchedContacts.filter(contact => selectedGenders.length === 0 || selectedGenders.includes(contact.gender));
-    let filteredByCompany = filteredByGenders.filter(contact => selectedCompanies.length === 0 || selectedCompanies.includes(contact.company));
+    let filteredByGender = searchedContacts.filter(contact => selectedGender.length === 0 || selectedGender.includes(contact.gender));
+    let filteredByCompany = filteredByGender.filter(contact => selectedCompany.length === 0 || selectedCompany.includes(contact.company));
 
     sortedContacts = filteredByCompany;
-
     displayContacts(sortedContacts);
 }
 
 //==============================================================================
 
-// ===================Add a button to clear filters, sort and search====================
+// ==============Add a button to clear filters, sort and search=================
 
 function clearAll() {
-    let clearFilters = document.querySelectorAll('.clearFilter');
-    for (let i = 0; i < clearFilters.length; i++) {
-        clearFilters[i].checked = false;
-    }
+    let filterDefault = document.querySelectorAll('.filterDefault');
+    filterDefault[0].setAttribute('selected', true);
+    filterDefault[1].setAttribute('selected', true);
     searchInput.value = '';
     clearAllSorterIcons();
     displayAllContacts();
